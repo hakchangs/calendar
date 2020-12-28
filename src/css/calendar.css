@@ -1,0 +1,84 @@
+.calendar {
+  --calendar-w: 280px;
+  --day-m: 5px;
+  --day-w: 30px;
+  --day-h: var(--day-w);
+  width: var(--calendar-w);
+  font-size: 14px;
+}
+.year-month {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.year {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.month {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prev-year,
+.next-year,
+.prev-month,
+.next-month {
+  padding: 0.5em;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.prev-year::before {
+  content: "\003c";
+}
+.next-year::before {
+  content: "\003E";
+}
+.prev-month::before {
+  content: "\003c";
+}
+.next-month::before {
+  content: "\003E";
+}
+.days > .days-header {
+  border-bottom: 1px solid #aaa;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: var(--day-h);
+}
+.days > .days-body {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.days .day {
+  width: var(--day-w);
+  height: var(--day-h);
+  margin: var(--day-m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  border: none;
+  border-radius: 50%;
+}
+.days .day:hover {
+  background: #f0f0f0;
+}
+.days .day.before,
+.days .day.after {
+  color: #ccc;
+}
+.days .day.today {
+  color: dodgerblue;
+  font-weight: bold;
+}
+.calendar .output > output {
+  font-size: 1rem;
+  background: #eee;
+  padding: 0.5em;
+}
