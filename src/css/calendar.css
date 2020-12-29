@@ -54,6 +54,11 @@
   display: flex;
   flex-wrap: wrap;
 }
+.days > .days-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .days .day {
   width: var(--day-w);
   height: var(--day-h);
@@ -77,8 +82,22 @@
   color: dodgerblue;
   font-weight: bold;
 }
+.days .day.selected {
+  color: #fff;
+  font-weight: bold;
+  background: rgba(30, 144, 255, 0.5);
+}
+
 .calendar .output > output {
   font-size: 1rem;
   background: #eee;
   padding: 0.5em;
+}
+.btn-today {
+  font-size: 14px;
+  padding: 0.5em;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 0.5em;
+  cursor: pointer;
 }

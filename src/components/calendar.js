@@ -11,7 +11,8 @@ console.log("weekdays=", moment.weekdays())
 const DEFAULT_FORMAT = "YYYY-MM-DD"
 
 class Calendar {
-  constructor(selector, viewFormat = "YYYY.MM.DD", cal = moment()) {
+  constructor(selector, options = {}) {
+    const { cal = moment(), viewFormat = "YYYY.MM.DD" } = options
     this.selector = selector
     this.el = document.querySelector(selector)
     this.cal = cal
@@ -65,30 +66,44 @@ class Calendar {
           <div class="days-body">
             ${daysBody}
           </div>
+          <div class="days-footer">
+            <button class="btn-today">오늘</button>
+          </div>
         </section>
       </div>
     `
   }
+  gotoToday() {
+    this.cal = moment()
+    this.setDays(this.cal)
+    this.render()
+  }
   setEvents() {
     this.el.addEventListener("click", (event) => {
-      const el = event.target
+      const target = event.target
       //
       //selected day
       //
-      const isDay = el.classList.contains("day")
+      const isDay = target.classList.contains("day")
       if (isDay) {
-        const date = el.dataset["date"]
-        console.log("date=", date)
+        const old = this.selected
+        const date = target.dataset["date"]
         const output = this.el.querySelector("output")
+        if (old) {
+          old.classList.remove("selected")
+        }
+        target.classList.add("selected")
+        this.selected = target
+        this.selectedDate = date
         output.value = moment(date, DEFAULT_FORMAT).format(this.viewFormat)
       }
       //
       //handler events
       //
-      const isPrevMonth = el.classList.contains("prev-month")
-      const isNextMonth = el.classList.contains("next-month")
-      const isPrevYear = el.classList.contains("prev-year")
-      const isNextYear = el.classList.contains("next-year")
+      const isPrevMonth = target.classList.contains("prev-month")
+      const isNextMonth = target.classList.contains("next-month")
+      const isPrevYear = target.classList.contains("prev-year")
+      const isNextYear = target.classList.contains("next-year")
       if (isPrevMonth) this.cal = this.cal.subtract(1, "months")
       if (isNextMonth) this.cal = this.cal.add(1, "months")
       if (isPrevYear) this.cal = this.cal.subtract(1, "years")
@@ -97,6 +112,17 @@ class Calendar {
         this.setDays(this.cal)
         this.render()
       }
+      //
+      //goto today
+      //
+      const isBtnToday = target.classList.contains("btn-today")
+      if (isBtnToday) {
+        this.gotoToday()
+      }
+      //
+      //Log And Test
+      //
+      this.logSelf()
     })
   }
   setDays(cal) {
@@ -134,6 +160,9 @@ class Calendar {
     console.log("year=", this.cal.format("YYYY"))
     console.log("month=", this.cal.format("MM"))
     console.log("day=", this.cal.format("DD"))
+  }
+  logSelf() {
+    console.log("calendar=", this)
   }
 }
 export default Calendar

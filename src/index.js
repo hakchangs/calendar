@@ -5,8 +5,10 @@ import Calendar from "./components/calendar"
 class App {
   init() {
     console.log("Hello")
-    const cal = new Calendar("#calendar")
-    const cal2 = new Calendar("#calendar-2")
+    const cal = new Calendar("#calendar", {
+      // cal: moment().subtract(1, "months"),
+    })
+    cal.logSelf()
   }
 }
 
